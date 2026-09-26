@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garuda Sakti - Media Pembelajaran Interaktif IPAS Kelas 6</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        merah: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                            950: '#4c0519',
+                        },
+                        emas: {
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2.5s infinite',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 15px rgba(225,29,72,0.6))' },
+                            '50%': { opacity: 0.8, filter: 'drop-shadow(0 0 5px rgba(225,29,72,0.2))' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-8px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 45%, #ffffff 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            user-select: none;
+        }
+
+        .bg-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+        }
+
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-patriotic {
+            background: linear-gradient(180deg, #ef4444 0%, #be123c 100%);
+            box-shadow: 0 6px 0 #881337, 0 10px 18px rgba(136, 19, 55, 0.4);
+            transition: all 0.15s ease;
+        }
+
+        .btn-patriotic:hover {
+            filter: brightness(1.05);
+        }
+
+        .btn-patriotic:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #881337, 0 4px 6px rgba(136, 19, 55, 0.4);
+        }
+
+        .btn-gold {
+            background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+            box-shadow: 0 6px 0 #92400e, 0 10px 18px rgba(217, 119, 6, 0.4);
+            transition: all 0.15s ease;
+        }
+
+        .btn-gold:hover {
+            filter: brightness(1.05);
+        }
+
+        .btn-gold:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #92400e, 0 4px 6px rgba(217, 119, 6, 0.4);
+        }
+
+        .player-quadrant {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .quadrant-p1 { border-color: #ef4444; background: linear-gradient(180deg, #ffffff 0%, #fff1f2 100%); }
+        .quadrant-p2 { border-color: #3b82f6; background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%); }
+        .quadrant-p3 { border-color: #10b981; background: linear-gradient(180deg, #ffffff 0%, #ecfdf5 100%); }
+        .quadrant-p4 { border-color: #f59e0b; background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%); }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.2); }
+        ::-webkit-scrollbar-thumb { background: #be123c; border-radius: 8px; }
+    </style>
+</head>
+<body class="bg-pattern text-slate-800 flex flex-col min-h-screen relative">
+
+    <header class="w-full bg-merah-900/95 text-white shadow-xl backdrop-blur-md border-b-4 border-emas-400 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-11 h-11 bg-emas-400 rounded-full flex items-center justify-center text-merah-900 font-bold text-2xl shadow-lg animate-float">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1 class="font-fredoka text-xl md:text-2xl font-bold tracking-wide text-amber-300">GARUDA SAKTI</h1>
+                    <p class="text-[11px] text-rose-200 font-medium hidden sm:block">IPAS Kelas 6 • Jejak Sang Pahlawan</p>
+                </div>
+            </div>
+
+            <!-- Responsive Navigation Links -->
+            <nav class="flex items-center space-x-1 sm:space-x-2">
+                <button onclick="switchTab('tujuan')" class="nav-btn px-2.5 py-1.5 md:px-3.5 md:py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold transition flex items-center space-x-1.5 border border-white/10">
+                    <i class="fa-solid fa-bullseye text-amber-300"></i>
+                    <span class="hidden md:inline">Tujuan</span>
+                </button>
+                <button onclick="switchTab('materi')" class="nav-btn px-2.5 py-1.5 md:px-3.5 md:py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold transition flex items-center space-x-1.5 border border-white/10">
+                    <i class="fa-solid fa-book-open text-amber-300"></i>
+                    <span class="hidden md:inline">Materi</span>
+                </button>
+                <button onclick="switchTab('lkpd')" class="nav-btn px-2.5 py-1.5 md:px-3.5 md:py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold transition flex items-center space-x-1.5 border border-white/10">
+                    <i class="fa-solid fa-file-pen text-amber-300"></i>
+                    <span class="hidden sm:inline">E-LKPD</span>
+                </button>
+                <button onclick="switchTab('game-lobby')" class="px-3 py-1.5 md:px-4 md:py-2 rounded-xl bg-emas-400 hover:bg-emas-300 text-merah-900 text-xs md:text-sm font-bold transition flex items-center space-x-1.5 shadow-md">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <span>Game 4 Pemain</span>
+                </button>
+                <button onclick="switchTab('refleksi')" class="nav-btn px-2.5 py-1.5 md:px-3.5 md:py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold transition flex items-center space-x-1.5 border border-white/10">
+                    <i class="fa-solid fa-heart text-amber-300"></i>
+                    <span class="hidden lg:inline">Refleksi</span>
+                </button>
+                <button id="sound-btn" onclick="toggleSound()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-amber-300 transition border border-white/20 ml-1">
+                    <i class="fa-solid fa-volume-high" id="sound-icon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center">
+
+        <!-- ================= VIEW 1: HOME / BERANDA ================= -->
+        <section id="view-home" class="view-section flex flex-col items-center justify-center text-center py-4 md:py-8">
+            <div class="glass-panel p-6 md:p-10 rounded-3xl max-w-4xl w-full border-t-8 border-merah-600 animate-fade-in relative overflow-hidden">
+                <!-- Background Garuda Graphic -->
+                <div class="absolute -right-12 -bottom-12 opacity-10 pointer-events-none">
+                    <svg width="340" height="340" viewBox="0 0 24 24" fill="currentColor" class="text-merah-800">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 bg-merah-100 text-merah-800 font-bold rounded-full text-xs md:text-sm mb-4 border border-merah-200">
+                    <i class="fa-solid fa-flag text-merah-600"></i>
+                    <span>Media Pembelajaran Digital IPAS Kelas 6</span>
+                </div>
+
+                <h2 class="font-fredoka text-3xl md:text-5xl font-extrabold text-merah-900 mb-3 tracking-tight">
+                    JEJAK SANG PAHLAWAN
+                </h2>
+                <p class="text-slate-600 text-sm md:text-base max-w-2xl mx-auto mb-8 leading-relaxed">
+                    Selamat datang di media pembelajaran interaktif berbasis AI dan kompetisi 4 pemain! Mari pelajari kisah perjuangan pahlawan bangsa, selesaikan E-LKPD, dan bertanding di arena game <strong>Garuda Sakti</strong>!
+                </p>
+
+                <!-- Center Emblem / Hero Mascot -->
+                <div class="flex justify-center mb-8">
+                    <div class="relative w-36 h-36 md:w-44 md:h-44 bg-gradient-to-tr from-emas-500 via-emas-400 to-amber-200 rounded-full flex items-center justify-center shadow-2xl border-4 border-white p-2 animate-bounce-slow">
+                        <svg viewBox="0 0 100 100" class="w-full h-full filter drop-shadow-lg">
+                            <path d="M50 8 L88 24 V56 C88 78 50 92 50 92 C50 92 12 78 12 56 V24 Z" fill="#be123c" stroke="#fbbf24" stroke-width="4"/>
+                            <polygon points="50,22 57,38 74,38 60,49 65,65 50,54 35,65 40,49 26,38 43,38" fill="#ffffff"/>
+                            <polygon points="50,30 54,40 65,40 56,47 59,58 50,51 41,58 44,47 35,40 46,40" fill="#fbbf24"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Main Hub Grid Buttons -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-4">
+                    <button onclick="switchTab('tujuan')" class="p-4 bg-rose-50 hover:bg-rose-100 rounded-2xl border-2 border-rose-200 text-center transition group">
+                        <i class="fa-solid fa-bullseye text-2xl text-merah-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-merah-900 text-xs md:text-sm">Tujuan Belajar</h4>
+                        <p class="text-[10px] text-slate-500 hidden sm:block">Capaian & Indikator</p>
+                    </button>
+                    <button onclick="switchTab('materi')" class="p-4 bg-amber-50 hover:bg-amber-100 rounded-2xl border-2 border-amber-200 text-center transition group">
+                        <i class="fa-solid fa-book-open text-2xl text-amber-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-amber-900 text-xs md:text-sm">Materi Detail</h4>
+                        <p class="text-[10px] text-slate-500 hidden sm:block">Proklamasi & Pahlawan</p>
+                    </button>
+                    <button onclick="switchTab('lkpd')" class="p-4 bg-emerald-50 hover:bg-emerald-100 rounded-2xl border-2 border-emerald-200 text-center transition group">
+                        <i class="fa-solid fa-file-pen text-2xl text-emerald-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-emerald-900 text-xs md:text-sm">E-LKPD Digital</h4>
+                        <p class="text-[10px] text-slate-500 hidden sm:block">Lembar Kerja Siswa</p>
+                    </button>
+                    <button onclick="switchTab('game-lobby')" class="p-4 bg-blue-50 hover:bg-blue-100 rounded-2xl border-2 border-blue-200 text-center transition group">
+                        <i class="fa-solid fa-gamepad text-2xl text-blue-600 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <h4 class="font-bold text-blue-900 text-xs md:text-sm">Game 4 Pemain</h4>
+                        <p class="text-[10px] text-slate-500 hidden sm:block">Kompetisi Kelas</p>
+                    </button>
+                </div>
+
+                <div class="mt-6 flex justify-center">
+                    <button onclick="switchTab('game-lobby')" class="btn-patriotic text-white font-extrabold px-8 py-4 rounded-2xl text-base md:text-lg flex items-center space-x-3">
+                        <i class="fa-solid fa-flag"></i>
+                        <span>LANGSUNG MAIN GAME GARUDA SAKTI (4 PEMAIN)</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 2: TUJUAN PEMBELAJARAN ================= -->
+        <section id="view-tujuan" class="view-section hidden py-4">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl max-w-4xl mx-auto">
+                <div class="flex items-center space-x-3 mb-6 border-b border-slate-200 pb-4">
+                    <div class="w-12 h-12 bg-merah-600 text-white rounded-2xl flex items-center justify-center text-xl shadow-md">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-merah-600 uppercase tracking-wider">Kurikulum Merdeka • Kelas 6</span>
+                        <h2 class="font-fredoka text-2xl md:text-3xl font-extrabold text-merah-900">Tujuan & Capaian Pembelajaran</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <!-- Target 1 -->
+                    <div class="p-5 bg-gradient-to-br from-rose-50 to-white rounded-2xl border-2 border-rose-200 flex space-x-4 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">1</div>
+                        <div>
+                            <h4 class="font-bold text-merah-900 text-sm md:text-base mb-1">Menganalisis Peristiwa Proklamasi</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Peserta didik mampu menceritakan kronologi peristiwa sekitar Proklamasi Kemerdekaan Indonesia 17 Agustus 1945 secara runtut.</p>
+                        </div>
+                    </div>
+
+                    <!-- Target 2 -->
+                    <div class="p-5 bg-gradient-to-br from-amber-50 to-white rounded-2xl border-2 border-amber-200 flex space-x-4 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">2</div>
+                        <div>
+                            <h4 class="font-bold text-amber-900 text-sm md:text-base mb-1">Mengenal Tokoh Kemerdekaan</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Peserta didik dapat mengidentifikasi peran tokoh-tokoh penting dalam memperjuangkan serta mempertahankan kemerdekaan.</p>
+                        </div>
+                    </div>
+
+                    <!-- Target 3 -->
+                    <div class="p-5 bg-gradient-to-br from-emerald-50 to-white rounded-2xl border-2 border-emerald-200 flex space-x-4 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">3</div>
+                        <div>
+                            <h4 class="font-bold text-emerald-900 text-sm md:text-base mb-1">Meneladani Nilai Kepahlawanan</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Peserta didik mampu meneladani sikap nasionalisme, patriotisme, pantang menyerah, dan persatuan dalam kehidupan sehari-hari.</p>
+                        </div>
+                    </div>
+
+                    <!-- Target 4 -->
+                    <div class="p-5 bg-gradient-to-br from-blue-50 to-white rounded-2xl border-2 border-blue-200 flex space-x-4 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg flex-shrink-0">4</div>
+                        <div>
+                            <h4 class="font-bold text-blue-900 text-sm md:text-base mb-1">Kolaborasi & Game Edukasi</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">Peserta didik mampu bekerjasama dan berkompetisi secara sehat melalui media game interaktif 4 pemain simultan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Box -->
+                <div class="p-4 bg-merah-50 rounded-2xl border border-merah-200 flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i class="fa-solid fa-graduation-cap text-2xl text-merah-600"></i>
+                        <span class="text-xs font-semibold text-merah-900">Siap untuk mulai belajar materi Jejak Sang Pahlawan?</span>
+                    </div>
+                    <button onclick="switchTab('materi')" class="btn-gold text-merah-900 font-extrabold px-4 py-2 rounded-xl text-xs">
+                        Buka Materi <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 3: MATERI PEMBELAJARAN ================= -->
+        <section id="view-materi" class="view-section hidden py-4">
+            <div class="glass-panel p-5 md:p-8 rounded-3xl mb-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="px-3 py-1 bg-merah-100 text-merah-800 text-xs font-bold rounded-lg uppercase">Materi IPAS Kelas 6 Bab 2</span>
+                        <h2 class="font-fredoka text-2xl md:text-3xl font-extrabold text-merah-900 mt-1">Jejak Sang Pahlawan Bangsa</h2>
+                    </div>
+                    
+                    <!-- Audio Reader Button -->
+                    <button onclick="speakMaterialSummary()" class="px-4 py-2 bg-rose-100 hover:bg-rose-200 text-merah-800 rounded-xl font-bold text-xs md:text-sm flex items-center space-x-2 transition border border-rose-300">
+                        <i class="fa-solid fa-volume-high text-merah-600"></i>
+                        <span>Dengarkan Narasi Suara</span>
+                    </button>
+                </div>
+
+                <!-- Material Tab Switcher -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+                    <button onclick="showMaterialTab(1)" id="mat-btn-1" class="mat-tab-btn active p-3.5 rounded-2xl bg-merah-600 text-white text-left font-bold transition shadow-md flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-base"><i class="fa-solid fa-scroll"></i></div>
+                        <div>
+                            <div class="text-[10px] text-rose-200">Bagian 1</div>
+                            <div class="text-xs md:text-sm">Peristiwa Proklamasi</div>
+                        </div>
+                    </button>
+                    <button onclick="showMaterialTab(2)" id="mat-btn-2" class="mat-tab-btn p-3.5 rounded-2xl bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 text-left font-bold transition flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-base"><i class="fa-solid fa-users"></i></div>
+                        <div>
+                            <div class="text-[10px] text-slate-400">Bagian 2</div>
+                            <div class="text-xs md:text-sm">Tokoh Kemerdekaan</div>
+                        </div>
+                    </button>
+                    <button onclick="showMaterialTab(3)" id="mat-btn-3" class="mat-tab-btn p-3.5 rounded-2xl bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 text-left font-bold transition flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-base"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                        <div>
+                            <div class="text-[10px] text-slate-400">Bagian 3</div>
+                            <div class="text-xs md:text-sm">Nilai Kepahlawanan</div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Tab 1: Detik-Detik Proklamasi -->
+                <div id="mat-content-1" class="mat-content space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                        <div>
+                            <h3 class="font-fredoka text-xl font-bold text-merah-800 mb-3 flex items-center">
+                                <i class="fa-solid fa-flag-checkered text-amber-500 mr-2"></i> Kemerdekaan Indonesia 17 Agustus 1945
+                            </h3>
+                            <p class="text-slate-600 text-xs md:text-sm leading-relaxed mb-4">
+                                Proklamasi Kemerdekaan Indonesia pada tanggal <strong>17 Agustus 1945</strong> merupakan puncak perjuangan bangsa Indonesia lepas dari penjajahan. Sebelum pembacaan teks, terjadi peristiwa penting seperti pencerahan Rengasdengklok pada 16 Agustus 1945 di mana Soekarno dan Hatta diamankan para pemuda.
+                            </p>
+                            <div class="bg-amber-50 border-l-4 border-amber-500 p-3.5 rounded-r-xl">
+                                <h4 class="font-bold text-amber-900 text-xs mb-1">Lokasi Bersejarah:</h4>
+                                <p class="text-slate-700 text-xs">Teks Proklamasi dibacakan di kediaman Ir. Soekarno, Jalan Pegangsaan Timur No. 56 Jakarta Pusat pada hari Jumat jam 10.00 WIB.</p>
+                            </div>
+                        </div>
+
+                        <!-- Supporting Visual Vector Card -->
+                        <div class="bg-gradient-to-br from-rose-600 to-merah-900 p-6 rounded-2xl text-white shadow-xl flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[220px]">
+                            <svg class="w-20 h-20 text-amber-300 mb-3 filter drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0h4m-4 0H7m4 0v10"/>
+                            </svg>
+                            <span class="font-fredoka text-lg font-bold text-amber-200">"Kemerdekaan Adalah Hak Segala Bangsa"</span>
+                            <p class="text-xs text-rose-100 mt-1 max-w-xs">Naskah diketik oleh Sayuti Melik dan Sang Saka Merah Putih dijahit oleh Ibu Fatmawati.</p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Timeline Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-4 border-t border-slate-200">
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <span class="text-[10px] font-extrabold text-merah-600 block">15 AGUSTUS 1945</span>
+                            <span class="text-xs text-slate-700 font-semibold">Jepang menyerah tanpa syarat kepada Sekutu.</span>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <span class="text-[10px] font-extrabold text-merah-600 block">16 AGUSTUS 1945</span>
+                            <span class="text-xs text-slate-700 font-semibold">Peristiwa Rengasdengklok & Perumusan Naskah.</span>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <span class="text-[10px] font-extrabold text-merah-600 block">17 AGUSTUS 1945</span>
+                            <span class="text-xs text-slate-700 font-semibold">Pembacaan Teks Proklamasi & Pengibaran Bendera.</span>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <span class="text-[10px] font-extrabold text-merah-600 block">18 AGUSTUS 1945</span>
+                            <span class="text-xs text-slate-700 font-semibold">Pengesahan UUD 1945 & Pemilihan Presiden/Wapres.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Tokoh Pahlawan -->
+                <div id="mat-content-2" class="mat-content hidden space-y-6">
+                    <h3 class="font-fredoka text-xl font-bold text-merah-800 mb-2"><i class="fa-solid fa-users text-amber-500 mr-2"></i>Tokoh-Tokoh Penting Kemerdekaan</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Ir. Soekarno -->
+                        <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 flex space-x-3 items-center">
+                            <div class="w-12 h-12 bg-merah-600 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-xs md:text-sm">Ir. Soekarno</h4>
+                                <p class="text-[10px] text-merah-600 font-semibold">Proklamator & Presiden Ke-1</p>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Membacakan Teks Proklamasi Kemerdekaan RI.</p>
+                            </div>
+                        </div>
+
+                        <!-- Drs. Mohammad Hatta -->
+                        <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex space-x-3 items-center">
+                            <div class="w-12 h-12 bg-amber-500 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                <i class="fa-solid fa-user-large"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-xs md:text-sm">Drs. Mohammad Hatta</h4>
+                                <p class="text-[10px] text-amber-600 font-semibold">Proklamator & Wakil Presiden Ke-1</p>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Mendampingi Soekarno & Pemimpin Diplomasi.</p>
+                            </div>
+                        </div>
+
+                        <!-- Fatmawati -->
+                        <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 flex space-x-3 items-center">
+                            <div class="w-12 h-12 bg-rose-500 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                <i class="fa-solid fa-scissors"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-xs md:text-sm">Ibu Fatmawati</h4>
+                                <p class="text-[10px] text-rose-600 font-semibold">Penjahit Bendera Pusaka</p>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Menjahit Bendera Sang Saka Merah Putih.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sayuti Melik -->
+                        <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200 flex space-x-3 items-center">
+                            <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                <i class="fa-solid fa-keyboard"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-xs md:text-sm">Sayuti Melik</h4>
+                                <p class="text-[10px] text-blue-600 font-semibold">Pengetik Naskah Proklamasi</p>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Mengetik dan merapikan naskah otentik.</p>
+                            </div>
+                        </div>
+
+                        <!-- Jenderal Soedirman -->
+                        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 flex space-x-3 items-center">
+                            <div class="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-xs md:text-sm">Jenderal Soedirman</h4>
+                                <p class="text-[10px] text-emerald-600 font-semibold">Panglima Besar TNI Pertama</p>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Memimpin Perang Gerilya meski dalam keadaan sakit.</p>
+                            </div>
+                        </div>
+
+                        <!-- Ki Hajar Dewantara -->
+                        <div class="p-4 rounded-2xl bg-purple-50 border border-purple-200 flex space-x-3 items-center">
+                            <div class="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-xs md:text-sm">Ki Hajar Dewantara</h4>
+                                <p class="text-[10px] text-purple-600 font-semibold">Bapak Pendidikan Nasional</p>
+                                <p class="text-[11px] text-slate-500 mt-0.5">Pencetus Semboyan "Tut Wuri Handayani".</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Nilai Kepahlawanan -->
+                <div id="mat-content-3" class="mat-content hidden space-y-6">
+                    <h3 class="font-fredoka text-xl font-bold text-merah-800 mb-2"><i class="fa-solid fa-heart text-amber-500 mr-2"></i>Nilai Kepahlawanan Dalam Kehidupan</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex space-x-3">
+                            <div class="text-emerald-600 text-2xl"><i class="fa-solid fa-circle-check"></i></div>
+                            <div>
+                                <h4 class="font-bold text-emerald-900 text-xs md:text-sm">Cinta Tanah Air (Nasionalisme)</h4>
+                                <p class="text-xs text-slate-600 mt-1">Bangga menggunakan produk buatan Indonesia, belajar dengan sungguh-sungguh untuk memajukan bangsa.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl flex space-x-3">
+                            <div class="text-amber-600 text-2xl"><i class="fa-solid fa-handshake"></i></div>
+                            <div>
+                                <h4 class="font-bold text-amber-900 text-xs md:text-sm">Rela Berkorban & Tolong Menolong</h4>
+                                <p class="text-xs text-slate-600 mt-1">Mendahulukan kepentingan umum di atas kepentingan pribadi dan membantu teman yang mengalami kesulitan.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-blue-50 border border-blue-200 rounded-2xl flex space-x-3">
+                            <div class="text-blue-600 text-2xl"><i class="fa-solid fa-person-running"></i></div>
+                            <div>
+                                <h4 class="font-bold text-blue-900 text-xs md:text-sm">Pantang Menyerah & Berani</h4>
+                                <p class="text-xs text-slate-600 mt-1">Tetap bersemangat meskipun menghadapi pelajaran sulit dan jujur membela kebenaran.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-purple-50 border border-purple-200 rounded-2xl flex space-x-3">
+                            <div class="text-purple-600 text-2xl"><i class="fa-solid fa-users-rectangle"></i></div>
+                            <div>
+                                <h4 class="font-bold text-purple-900 text-xs md:text-sm">Persatuan & Kesatuan</h4>
+                                <p class="text-xs text-slate-600 mt-1">Berteman tanpa membeda-bedakan suku, agama, dan ras sesuai semboyan Bhinneka Tunggal Ika.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-center space-x-3">
+                    <button onclick="switchTab('lkpd')" class="btn-gold text-merah-900 font-bold px-6 py-3 rounded-xl text-xs md:text-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-file-pen"></i>
+                        <span>Lanjut ke E-LKPD</span>
+                    </button>
+                    <button onclick="switchTab('game-lobby')" class="btn-patriotic text-white font-bold px-6 py-3 rounded-xl text-xs md:text-sm flex items-center space-x-2">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <span>Main Game Garuda Sakti</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 4: E-LKPD DIGITAL ================= -->
+        <section id="view-lkpd" class="view-section hidden py-4">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl max-w-4xl mx-auto">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center font-bold text-lg shadow">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-emerald-600 uppercase">Lembar Kerja Peserta Didik Digital</span>
+                            <h2 class="font-fredoka text-xl md:text-2xl font-bold text-slate-800">E-LKPD: Jejak Sang Pahlawan</h2>
+                        </div>
+                    </div>
+                    <span id="lkpd-score-badge" class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-xs hidden">
+                        Nilai: <span id="lkpd-score-val">0</span>/100
+                    </span>
+                </div>
+
+                <!-- Form LKPD -->
+                <form id="lkpd-form" onsubmit="evaluateLKPD(event)" class="space-y-6">
+                    <!-- Identity Inputs -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Siswa / Kelompok:</label>
+                            <input type="text" id="lkpd-name" required placeholder="Contoh: Kelompok Garuda Sakti" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Kelas:</label>
+                            <input type="text" id="lkpd-class" required placeholder="Contoh: 6A" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Question 1: Matching / Multiple Choice -->
+                    <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <span class="px-2.5 py-1 bg-merah-100 text-merah-700 font-bold text-[10px] rounded-md">Soal 1 (Pilihan Ganda)</span>
+                        <p class="text-xs md:text-sm font-semibold text-slate-800">Tokoh pahlawan yang bertugas menjahit Bendera Sang Saka Merah Putih pertama kali adalah...</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <label class="flex items-center space-x-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="lkpd_q1" value="A" required class="text-merah-600">
+                                <span>A. Cut Nyak Dien</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="lkpd_q1" value="B" class="text-merah-600">
+                                <span>B. Ibu Fatmawati</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="lkpd_q1" value="C" class="text-merah-600">
+                                <span>C. R.A. Kartini</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="lkpd_q1" value="D" class="text-merah-600">
+                                <span>D. Dewi Sartika</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 2: Historical Place -->
+                    <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <span class="px-2.5 py-1 bg-merah-100 text-merah-700 font-bold text-[10px] rounded-md">Soal 2 (Pilihan Ganda)</span>
+                        <p class="text-xs md:text-sm font-semibold text-slate-800">Teks Proklamasi Kemerdekaan Indonesia dibacakan pada 17 Agustus 1945 di...</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <label class="flex items-center space-x-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="lkpd_q2" value="A" required class="text-merah-600">
+                                <span>A. Jl. Pegangsaan Timur No. 56 Jakarta</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="lkpd_q2" value="B" class="text-merah-600">
+                                <span>B. Lapangan Ikada Jakarta</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="lkpd_q2" value="C" class="text-merah-600">
+                                <span>C. Gedung DPR/MPR</span>
+                            </label>
+                            <label class="flex items-center space-x-2 p-2.5 border rounded-xl cursor-pointer hover:bg-slate-50">
+                                <input type="radio" name="lkpd_q2" value="D" class="text-merah-600">
+                                <span>D. Rumah Sayuti Melik</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question 3: Essay / Analysis -->
+                    <div class="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <span class="px-2.5 py-1 bg-amber-100 text-amber-800 font-bold text-[10px] rounded-md">Soal 3 (Analisis Singkat)</span>
+                        <p class="text-xs md:text-sm font-semibold text-slate-800">Tuliskan 2 contoh tindakan konkret yang bisa kamu lakukan di sekolah untuk meneladani sikap pahlawan!</p>
+                        <textarea id="lkpd_q3" rows="3" required placeholder="Tuliskan jawabanmu di sini..." class="w-full p-3 border border-slate-300 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-2xl text-sm shadow-lg transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>Kirim & Periksa E-LKPD</span>
+                    </button>
+                </form>
+
+                <!-- Feedback Area -->
+                <div id="lkpd-feedback" class="mt-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 hidden">
+                    <h4 class="font-bold text-emerald-900 text-sm mb-1"><i class="fa-solid fa-award text-emerald-600 mr-1"></i> Hasil Lembar Kerja Digital:</h4>
+                    <p id="lkpd-feedback-text" class="text-xs text-slate-700 leading-relaxed"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 5: GAME LOBBY (LOGIN 4 PEMAIN) ================= -->
+        <section id="view-game-lobby" class="view-section hidden py-4">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl max-w-4xl mx-auto border-t-8 border-merah-600 shadow-2xl">
+                <div class="text-center mb-6">
+                    <span class="px-3 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-full border border-amber-300">
+                        <i class="fa-solid fa-users mr-1"></i> Arena Kompetisi 4 Pemain Simultan
+                    </span>
+                    <h2 class="font-fredoka text-2xl md:text-3xl font-extrabold text-merah-900 mt-2">Pendaftaran Pemain Garuda Sakti</h2>
+                    <p class="text-xs md:text-sm text-slate-600 mt-1">Masukkan Nama & Kelas 4 pemain. Cocok untuk Papan Interaktif Digital (*Smart Board*), Laptop, maupun Smartphone!</p>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="player-form" onsubmit="startGame(event)" class="space-y-6">
+                    
+                    <!-- 4 Player Input Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        <!-- Player 1 -->
+                        <div class="p-4 rounded-2xl bg-rose-50 border-2 border-rose-300 relative shadow-sm">
+                            <div class="flex items-center space-x-2 mb-3">
+                                <span class="w-7 h-7 rounded-full bg-rose-600 text-white font-bold text-xs flex items-center justify-center">P1</span>
+                                <h3 class="font-bold text-rose-900 text-sm">Pemain 1 (Merah)</h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Nama Lengkap</label>
+                                    <input type="text" id="p1-name" value="Siti" required class="w-full px-3 py-2 rounded-xl border border-rose-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-500 bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Kelas</label>
+                                    <input type="text" id="p1-class" value="6A" required class="w-full px-3 py-2 rounded-xl border border-rose-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-rose-500 bg-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Player 2 -->
+                        <div class="p-4 rounded-2xl bg-blue-50 border-2 border-blue-300 relative shadow-sm">
+                            <div class="flex items-center space-x-2 mb-3">
+                                <span class="w-7 h-7 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center">P2</span>
+                                <h3 class="font-bold text-blue-900 text-sm">Pemain 2 (Biru)</h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Nama Lengkap</label>
+                                    <input type="text" id="p2-name" value="Budi" required class="w-full px-3 py-2 rounded-xl border border-blue-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Kelas</label>
+                                    <input type="text" id="p2-class" value="6A" required class="w-full px-3 py-2 rounded-xl border border-blue-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Player 3 -->
+                        <div class="p-4 rounded-2xl bg-emerald-50 border-2 border-emerald-300 relative shadow-sm">
+                            <div class="flex items-center space-x-2 mb-3">
+                                <span class="w-7 h-7 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center">P3</span>
+                                <h3 class="font-bold text-emerald-900 text-sm">Pemain 3 (Hijau)</h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Nama Lengkap</label>
+                                    <input type="text" id="p3-name" value="Eko" required class="w-full px-3 py-2 rounded-xl border border-emerald-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Kelas</label>
+                                    <input type="text" id="p3-class" value="6B" required class="w-full px-3 py-2 rounded-xl border border-emerald-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Player 4 -->
+                        <div class="p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 relative shadow-sm">
+                            <div class="flex items-center space-x-2 mb-3">
+                                <span class="w-7 h-7 rounded-full bg-amber-600 text-white font-bold text-xs flex items-center justify-center">P4</span>
+                                <h3 class="font-bold text-amber-900 text-sm">Pemain 4 (Kuning)</h3>
+                            </div>
+                            <div class="space-y-2">
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Nama Lengkap</label>
+                                    <input type="text" id="p4-name" value="Dewi" required class="w-full px-3 py-2 rounded-xl border border-amber-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Kelas</label>
+                                    <input type="text" id="p4-class" value="6B" required class="w-full px-3 py-2 rounded-xl border border-amber-200 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Difficulty Selection Selector -->
+                    <div class="bg-slate-100 p-4 rounded-2xl border border-slate-200">
+                        <label class="block text-center text-xs font-bold text-slate-700 mb-3">
+                            <i class="fa-solid fa-gauge-high text-merah-600 mr-1"></i> Pilih Tingkat Kesulitan Soal:
+                        </label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="difficulty" value="mudah" checked class="peer sr-only">
+                                <div class="p-3 text-center rounded-xl border-2 border-slate-300 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 peer-checked:text-white transition font-bold text-xs bg-white">
+                                    <i class="fa-solid fa-seedling block text-lg mb-1"></i> Mudah (20s)
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="difficulty" value="sedang" class="peer sr-only">
+                                <div class="p-3 text-center rounded-xl border-2 border-slate-300 peer-checked:border-amber-500 peer-checked:bg-amber-500 peer-checked:text-white transition font-bold text-xs bg-white">
+                                    <i class="fa-solid fa-fire block text-lg mb-1"></i> Sedang (12s)
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="difficulty" value="sulit" class="peer sr-only">
+                                <div class="p-3 text-center rounded-xl border-2 border-slate-300 peer-checked:border-merah-600 peer-checked:bg-merah-600 peer-checked:text-white transition font-bold text-xs bg-white">
+                                    <i class="fa-solid fa-bolt block text-lg mb-1"></i> Sulit (8s)
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Smart Board & Laptop Control Guide -->
+                    <div class="text-center text-xs text-slate-500 bg-white/80 p-3 rounded-xl border border-slate-200">
+                        <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> <strong>Sistem Perangkat:</strong> Di Papan Interaktif / HP, masing-masing pemain menekan tombol pilihan di sudut kuadrannya sendiri. Di Laptop, pemain juga bisa menekan pilihan menggunakan tetikus/mouse.
+                    </div>
+
+                    <button type="submit" class="w-full btn-patriotic text-white font-extrabold py-4 rounded-2xl text-base md:text-lg shadow-xl flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-flag"></i>
+                        <span>MULAI PERTANDINGAN 4 PEMAIN</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 6: 4-PLAYER GAME ARENA ================= -->
+        <section id="view-game-arena" class="view-section hidden py-2">
+            <!-- Top Status Bar -->
+            <div class="glass-dark text-white p-3 md:p-4 rounded-2xl mb-4 flex justify-between items-center border border-white/10 shadow-lg">
+                <div class="flex items-center space-x-3">
+                    <span id="arena-question-counter" class="px-3 py-1 bg-emas-400 text-merah-900 font-extrabold text-xs md:text-sm rounded-lg">Soal 1/10</span>
+                    <span id="arena-difficulty-tag" class="text-xs px-2.5 py-1 bg-white/20 rounded-md uppercase font-semibold text-amber-200">MUDAH</span>
+                </div>
+                
+                <!-- Center Timer -->
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-stopwatch text-amber-400 text-xl animate-pulse"></i>
+                    <span id="arena-timer" class="font-fredoka text-2xl md:text-3xl font-extrabold text-white">20</span>
+                    <span class="text-xs text-slate-300">detik</span>
+                </div>
+
+                <button onclick="confirmExitGame()" class="px-3 py-1.5 bg-rose-600/80 hover:bg-rose-600 text-white rounded-xl text-xs font-bold transition">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
+                </button>
+            </div>
+
+            <!-- Question Box -->
+            <div class="glass-panel p-5 md:p-6 rounded-3xl mb-4 border-2 border-emas-400 text-center shadow-2xl relative overflow-hidden">
+                <div class="text-[11px] font-bold text-merah-700 uppercase tracking-widest mb-1" id="arena-category">PERISTIWA PROKLAMASI</div>
+                <h3 id="arena-question-text" class="font-fredoka text-base md:text-2xl font-bold text-slate-800 leading-snug">
+                    Siapakah tokoh yang mengetik teks Proklamasi Kemerdekaan Indonesia?
+                </h3>
+            </div>
+
+            <!-- 4 Players Quadrants Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <!-- Player 1 Quadrant (Merah) -->
+                <div id="p1-quadrant" class="player-quadrant p-3.5 md:p-4 rounded-2xl border-4 quadrant-p1 shadow-md flex flex-col justify-between min-h-[170px]">
+                    <div class="flex justify-between items-center mb-2 border-b border-rose-100 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 h-6 rounded-full bg-rose-600 text-white text-xs font-bold flex items-center justify-center">1</span>
+                            <div>
+                                <h4 id="p1-display-name" class="font-bold text-slate-800 text-xs md:text-sm">Siti</h4>
+                                <span id="p1-display-class" class="text-[10px] text-slate-500">Kelas 6A</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span id="p1-score" class="font-fredoka text-xl md:text-2xl font-black text-rose-600">0</span>
+                            <span class="text-[10px] text-slate-400 block">Poin</span>
+                        </div>
+                    </div>
+
+                    <!-- Options Grid P1 -->
+                    <div class="grid grid-cols-2 gap-2 mt-1" id="p1-options">
+                        <!-- Options generated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Player 2 Quadrant (Biru) -->
+                <div id="p2-quadrant" class="player-quadrant p-3.5 md:p-4 rounded-2xl border-4 quadrant-p2 shadow-md flex flex-col justify-between min-h-[170px]">
+                    <div class="flex justify-between items-center mb-2 border-b border-blue-100 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">2</span>
+                            <div>
+                                <h4 id="p2-display-name" class="font-bold text-slate-800 text-xs md:text-sm">Budi</h4>
+                                <span id="p2-display-class" class="text-[10px] text-slate-500">Kelas 6A</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span id="p2-score" class="font-fredoka text-xl md:text-2xl font-black text-blue-600">0</span>
+                            <span class="text-[10px] text-slate-400 block">Poin</span>
+                        </div>
+                    </div>
+
+                    <!-- Options Grid P2 -->
+                    <div class="grid grid-cols-2 gap-2 mt-1" id="p2-options">
+                        <!-- Options generated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Player 3 Quadrant (Hijau) -->
+                <div id="p3-quadrant" class="player-quadrant p-3.5 md:p-4 rounded-2xl border-4 quadrant-p3 shadow-md flex flex-col justify-between min-h-[170px]">
+                    <div class="flex justify-between items-center mb-2 border-b border-emerald-100 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold flex items-center justify-center">3</span>
+                            <div>
+                                <h4 id="p3-display-name" class="font-bold text-slate-800 text-xs md:text-sm">Eko</h4>
+                                <span id="p3-display-class" class="text-[10px] text-slate-500">Kelas 6B</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span id="p3-score" class="font-fredoka text-xl md:text-2xl font-black text-emerald-600">0</span>
+                            <span class="text-[10px] text-slate-400 block">Poin</span>
+                        </div>
+                    </div>
+
+                    <!-- Options Grid P3 -->
+                    <div class="grid grid-cols-2 gap-2 mt-1" id="p3-options">
+                        <!-- Options generated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Player 4 Quadrant (Kuning) -->
+                <div id="p4-quadrant" class="player-quadrant p-3.5 md:p-4 rounded-2xl border-4 quadrant-p4 shadow-md flex flex-col justify-between min-h-[170px]">
+                    <div class="flex justify-between items-center mb-2 border-b border-amber-100 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-6 h-6 rounded-full bg-amber-600 text-white text-xs font-bold flex items-center justify-center">4</span>
+                            <div>
+                                <h4 id="p4-display-name" class="font-bold text-slate-800 text-xs md:text-sm">Dewi</h4>
+                                <span id="p4-display-class" class="text-[10px] text-slate-500">Kelas 6B</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span id="p4-score" class="font-fredoka text-xl md:text-2xl font-black text-amber-600">0</span>
+                            <span class="text-[10px] text-slate-400 block">Poin</span>
+                        </div>
+                    </div>
+
+                    <!-- Options Grid P4 -->
+                    <div class="grid grid-cols-2 gap-2 mt-1" id="p4-options">
+                        <!-- Options generated dynamically -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= VIEW 7: RESULT & PODIUM ================= -->
+        <section id="view-result" class="view-section hidden py-6">
+            <div class="glass-panel p-6 md:p-10 rounded-3xl max-w-3xl mx-auto text-center border-t-8 border-emas-400 relative shadow-2xl">
+                
+                <div class="inline-block p-3 bg-amber-100 text-amber-700 rounded-full mb-3 text-2xl">
+                    <i class="fa-solid fa-trophy text-amber-500 animate-bounce"></i>
+                </div>
+
+                <h2 class="font-fredoka text-3xl md:text-4xl font-extrabold text-merah-900 mb-1">HASIL PERTANDINGAN</h2>
+                <p class="text-xs md:text-sm text-slate-600 mb-6">Selamat kepada para Pahlawan Cilik IPAS Kelas 6!</p>
+
+                <!-- Podium 4 Player Display -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 items-end mb-8 pt-4 border-b border-slate-200 pb-8" id="podium-container">
+                    <!-- Dynamic Podium Cards Generated by JS -->
+                </div>
+
+                <!-- Teacher Note -->
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200 text-left mb-6">
+                    <h4 class="font-bold text-amber-900 text-xs md:text-sm mb-1"><i class="fa-solid fa-star text-amber-500 mr-1"></i> Catatan Evaluasi Guru:</h4>
+                    <p class="text-xs text-slate-700 leading-relaxed">
+                        Hebat sekali! Kalian semua telah berusaha keras memahami materi Jejak Sang Pahlawan. Terus pertahankan semangat belajar dan nilai-nilai luhur kemerdekaan!
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button onclick="switchTab('game-lobby')" class="btn-patriotic text-white font-bold px-6 py-3 rounded-xl text-xs md:text-sm flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Main Lagi</span>
+                    </button>
+                    <button onclick="switchTab('refleksi')" class="btn-gold text-merah-900 font-bold px-6 py-3 rounded-xl text-xs md:text-sm flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Ke Halaman Refleksi</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 8: REFLEKSI PEMBELAJARAN ================= -->
+        <section id="view-refleksi" class="view-section hidden py-4">
+            <div class="glass-panel p-6 md:p-8 rounded-3xl max-w-3xl mx-auto">
+                <div class="flex items-center space-x-3 mb-6 border-b border-slate-200 pb-4">
+                    <div class="w-10 h-10 bg-rose-600 text-white rounded-xl flex items-center justify-center font-bold text-lg shadow">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold text-rose-600 uppercase">Evaluasi Diri Siswa</span>
+                        <h2 class="font-fredoka text-xl md:text-2xl font-bold text-slate-800">Refleksi Pembelajaran</h2>
+                    </div>
+                </div>
+
+                <form onsubmit="submitReflection(event)" class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-2">1. Bagaimana perasaanmu setelah mempelajari materi dan bermain game ini?</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="ref_mood" value="Sangat Senang" required class="peer sr-only">
+                                <div class="p-3 text-center border-2 border-slate-200 rounded-xl peer-checked:border-rose-500 peer-checked:bg-rose-50 transition text-xs font-bold">
+                                    <span class="text-2xl block mb-1">😃</span> Sangat Senang
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="ref_mood" value="Senang" class="peer sr-only">
+                                <div class="p-3 text-center border-2 border-slate-200 rounded-xl peer-checked:border-rose-500 peer-checked:bg-rose-50 transition text-xs font-bold">
+                                    <span class="text-2xl block mb-1">🙂</span> Senang
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="ref_mood" value="Biasa Saja" class="peer sr-only">
+                                <div class="p-3 text-center border-2 border-slate-200 rounded-xl peer-checked:border-rose-500 peer-checked:bg-rose-50 transition text-xs font-bold">
+                                    <span class="text-2xl block mb-1">😐</span> Biasa Saja
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">2. Hal terpenting apa yang kamu pelajari tentang pahlawan hari ini?</label>
+                        <textarea id="ref_learned" rows="2" required placeholder="Tuliskan pelajaran paling berharga..." class="w-full p-3 border border-slate-300 rounded-xl text-xs focus:ring-2 focus:ring-rose-500 outline-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">3. Janji / Komitmen Pahlawan Muda Indonesia:</label>
+                        <textarea id="ref_promise" rows="2" required placeholder="Contoh: Saya akan rajin belajar dan selalu membantu teman tanpa membedakan..." class="w-full p-3 border border-slate-300 rounded-xl text-xs focus:ring-2 focus:ring-rose-500 outline-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full btn-patriotic text-white font-extrabold py-3.5 rounded-2xl text-sm shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Simpan Refleksi Pembelajaran</span>
+                    </button>
+                </form>
+
+                <div id="refleksi-result" class="mt-6 p-4 bg-rose-50 border border-rose-200 rounded-2xl hidden">
+                    <h4 class="font-bold text-merah-900 text-xs md:text-sm mb-1"><i class="fa-solid fa-award text-merah-600 mr-1"></i> Piagam Komitmen Pahlawan Cilik:</h4>
+                    <p id="refleksi-summary" class="text-xs text-slate-700 leading-relaxed"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="w-full bg-merah-950 text-rose-200 text-center py-3 text-xs border-t border-rose-800/50 mt-auto">
+        <p>© 2026 <strong>Garuda Sakti</strong> - Media Pembelajaran Interaktif IPAS Kelas 6 SD • Tema Merah Putih</p>
+    </footer>
+
+    <script>
+        /* ================= WEB AUDIO SYNTHESIZER SOUND ENGINE ================= */
+        let audioCtx = null;
+        let isMuted = false;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+        }
+
+        function playSound(type) {
+            if (isMuted) return;
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(450, now);
+                    osc.frequency.exponentialRampToValueAtTime(850, now + 0.05);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'correct') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.setValueAtTime(150, now + 0.12);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.28);
+                    osc.start(now);
+                    osc.stop(now + 0.28);
+                } else if (type === 'fanfare') {
+                    const freqs = [523.25, 659.25, 783.99, 1046.50];
+                    freqs.forEach((f, idx) => {
+                        const o = audioCtx.createOscillator();
+                        const g = audioCtx.createGain();
+                        o.connect(g);
+                        g.connect(audioCtx.destination);
+                        o.type = 'triangle';
+                        o.frequency.setValueAtTime(f, now + idx * 0.09);
+                        g.gain.setValueAtTime(0.2, now + idx * 0.09);
+                        g.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.09 + 0.4);
+                        o.start(now + idx * 0.09);
+                        o.stop(now + idx * 0.09 + 0.4);
+                    });
+                }
+            } catch (e) {
+                console.log("Audio not allowed yet:", e);
+            }
+        }
+
+        function toggleSound() {
+            isMuted = !isMuted;
+            const icon = document.getElementById('sound-icon');
+            if (isMuted) {
+                icon.className = 'fa-solid fa-volume-xmark text-rose-400';
+            } else {
+                icon.className = 'fa-solid fa-volume-high text-amber-300';
+                playSound('click');
+            }
+        }
+
+        function speakMaterialSummary() {
+            playSound('click');
+            if ('speechSynthesis' in window) {
+                const text = "Materi IPAS Kelas 6, Jejak Sang Pahlawan. Proklamasi Kemerdekaan Indonesia dibacakan pada 17 Agustus 1945 oleh Ir Soekarno dan Drs Mohammad Hatta di Jalan Pegangsaan Timur Nomor 56 Jakarta. Mari teladani sikap keberanian, persatuan, dan rela berkorban demi bangsa Indonesia!";
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Peramban web tidak mendukung fitur audio narasi suara.");
+            }
+        }
+
+        /* ================= QUESTION BANK ================= */
+        const questionBank = [
+            {
+                category: "PERISTIWA PROKLAMASI",
+                question: "Di manakah lokasi pembacaan Teks Proklamasi Kemerdekaan Indonesia pada 17 Agustus 1945?",
+                options: [
+                    "Jl. Pegangsaan Timur No. 56, Jakarta",
+                    "Gedung Istana Negara",
+                    "Lapangan Ikada Jakarta",
+                    "Rumah Laksamana Maeda"
+                ],
+                answer: 0
+            },
+            {
+                category: "TOKOH PAHLAWAN",
+                question: "Siapakah tokoh pahlawan yang berjasa mengetik naskah Proklamasi Kemerdekaan Indonesia?",
+                options: [
+                    "Sukarni",
+                    "Sayuti Melik",
+                    "Latief Hendraningrat",
+                    "A.A. Maramis"
+                ],
+                answer: 1
+            },
+            {
+                category: "TOKOH PAHLAWAN",
+                question: "Tokoh wanita hebat yang bertugas menjahit Bendera Pusaka Sang Saka Merah Putih adalah...",
+                options: [
+                    "R.A. Kartini",
+                    "Cut Nyak Dien",
+                    "Ibu Fatmawati",
+                    "Dewi Sartika"
+                ],
+                answer: 2
+            },
+            {
+                category: "SEJARAH PERJUANGAN",
+                question: "Peristiwa pengamanan Soekarno dan Hatta oleh para pemuda ke luar kota pada 16 Agustus 1945 dikenal dengan peristiwa...",
+                options: [
+                    "Bandung Lautan Api",
+                    "Pertempuran Surabaya",
+                    "Peristiwa Rengasdengklok",
+                    "Agresi Militer"
+                ],
+                answer: 2
+            },
+            {
+                category: "NILAI KEPAHLAWANAN",
+                question: "Semboyan Pendidikan Nasional karangan Ki Hajar Dewantara 'Ing Ngarsa Sung Tuladha' memiliki arti...",
+                options: [
+                    "Di belakang memberi dorongan",
+                    "Di tengah membangun semangat",
+                    "Di depan memberi teladan",
+                    "Bersama meraih cita-cita"
+                ],
+                answer: 2
+            },
+            {
+                category: "TOKOH MILITER",
+                question: "Panglima Besar TNI pertama yang memimpin perang gerilya dalam keadaan sakit parah adalah...",
+                options: [
+                    "Jenderal Soedirman",
+                    "Bung Tomo",
+                    "Pangeran Diponegoro",
+                    "Tuanku Imam Bonjol"
+                ],
+                answer: 0
+            },
+            {
+                category: "PERISTIWA HISTORIS",
+                question: "Hari Pahlawan diperingati setiap tanggal 10 November untuk mengenang pertempuran hebat di kota...",
+                options: [
+                    "Semarang",
+                    "Surabaya",
+                    "Yogyakarta",
+                    "Bandung"
+                ],
+                answer: 1
+            },
+            {
+                category: "TOKOH PROKLAMATOR",
+                question: "Dua tokoh bangsa yang dijuluki sebagai Dwi Tunggal dan Bapak Proklamator Indonesia adalah...",
+                options: [
+                    "Soekarno & Suharto",
+                    "Soekarno & Mohammad Hatta",
+                    "Mohammad Hatta & Ki Hajar Dewantara",
+                    "Jenderal Soedirman & Bung Tomo"
+                ],
+                answer: 1
+            },
+            {
+                category: "NILAI KEPAHLAWANAN",
+                question: "Sikap membela kebenaran dan mendahulukan kepentingan bangsa di atas kepentingan pribadi disebut...",
+                options: [
+                    "Egoisme",
+                    "Nasionalisme & Patriotisme",
+                    "Individualisme",
+                    "Konsumerisme"
+                ],
+                answer: 1
+            },
+            {
+                category: "LAMBANG & SIMBOL",
+                question: "Semboyan negara 'Bhinneka Tunggal Ika' yang tercengkeram pada kaki Garuda Pancasila bermakna...",
+                options: [
+                    "Berbeda-beda tetapi tetap satu jua",
+                    "Bersatu kita teguh bercerai kita runtuh",
+                    "Pantang menyerah sebelum berhasil",
+                    "Utamakan persatuan Indonesia"
+                ],
+                answer: 0
+            }
+        ];
+
+        /* ================= GAME STATE ================= */
+        let players = [
+            { id: 1, name: "Siti", class: "6A", score: 0, answered: false },
+            { id: 2, name: "Budi", class: "6A", score: 0, answered: false },
+            { id: 3, name: "Eko", class: "6B", score: 0, answered: false },
+            { id: 4, name: "Dewi", class: "6B", score: 0, answered: false }
+        ];
+
+        let currentQuestionIdx = 0;
+        let timerInterval = null;
+        let timeLeft = 20;
+        let difficulty = 'mudah';
+        let isQuestionActive = false;
+
+        /* Switch View Tabs */
+        function switchTab(viewId) {
+            playSound('click');
+            const sections = document.querySelectorAll('.view-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+
+            const targetSection = document.getElementById('view-' + viewId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Material Sub-tabs */
+        function showMaterialTab(tabIndex) {
+            playSound('click');
+            document.querySelectorAll('.mat-tab-btn').forEach((btn, idx) => {
+                if (idx + 1 === tabIndex) {
+                    btn.className = 'mat-tab-btn active p-3.5 rounded-2xl bg-merah-600 text-white text-left font-bold transition shadow-md flex items-center space-x-3';
+                } else {
+                    btn.className = 'mat-tab-btn p-3.5 rounded-2xl bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 text-left font-bold transition flex items-center space-x-3';
+                }
+            });
+
+            document.querySelectorAll('.mat-content').forEach((content, idx) => {
+                if (idx + 1 === tabIndex) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        /* Evaluate E-LKPD */
+        function evaluateLKPD(e) {
+            e.preventDefault();
+            playSound('click');
+
+            const name = document.getElementById('lkpd-name').value;
+            const cls = document.getElementById('lkpd-class').value;
+            const q1 = document.querySelector('input[name="lkpd_q1"]:checked')?.value;
+            const q2 = document.querySelector('input[name="lkpd_q2"]:checked')?.value;
+            const q3 = document.getElementById('lkpd_q3').value;
+
+            let score = 0;
+            if (q1 === 'B') score += 35;
+            if (q2 === 'A') score += 35;
+            if (q3.trim().length > 10) score += 30;
+
+            document.getElementById('lkpd-score-badge').classList.remove('hidden');
+            document.getElementById('lkpd-score-val').innerText = score;
+
+            const feedback = document.getElementById('lkpd-feedback');
+            const feedbackText = document.getElementById('lkpd-feedback-text');
+            feedback.classList.remove('hidden');
+            
+            feedbackText.innerHTML = `Terima kasih <strong>${name} (${cls})</strong>! E-LKPD kamu telah berhasil dinilai dengan skor <strong>${score}/100</strong>.<br>Jawaban analisis kamu: "<em>${q3}</em>" menunjukkan komitmen yang luar biasa!`;
+            playSound('correct');
+        }
+
+        /* Submit Reflection */
+        function submitReflection(e) {
+            e.preventDefault();
+            playSound('correct');
+
+            const mood = document.querySelector('input[name="ref_mood"]:checked')?.value || "Senang";
+            const learned = document.getElementById('ref_learned').value;
+            const promise = document.getElementById('ref_promise').value;
+
+            const resDiv = document.getElementById('refleksi-result');
+            const summary = document.getElementById('refleksi-summary');
+
+            resDiv.classList.remove('hidden');
+            summary.innerHTML = `<strong>Status Perasaan:</strong> ${mood}<br><strong>Pelajaran Berharga:</strong> ${learned}<br><strong>Komitmen Pahlawan Muda:</strong> "<em>${promise}</em>"`;
+        }
+
+        /* Start Game from Form */
+        function startGame(e) {
+            e.preventDefault();
+            playSound('click');
+
+            // Collect player details
+            players[0].name = document.getElementById('p1-name').value.trim() || 'Pemain 1';
+            players[0].class = document.getElementById('p1-class').value.trim() || '6A';
+            
+            players[1].name = document.getElementById('p2-name').value.trim() || 'Pemain 2';
+            players[1].class = document.getElementById('p2-class').value.trim() || '6A';
+
+            players[2].name = document.getElementById('p3-name').value.trim() || 'Pemain 3';
+            players[2].class = document.getElementById('p3-class').value.trim() || '6B';
+
+            players[3].name = document.getElementById('p4-name').value.trim() || 'Pemain 4';
+            players[3].class = document.getElementById('p4-class').value.trim() || '6B';
+
+            // Selected difficulty
+            const diffRadios = document.getElementsByName('difficulty');
+            for (let r of diffRadios) {
+                if (r.checked) difficulty = r.value;
+            }
+
+            // Reset Scores
+            players.forEach(p => { p.score = 0; p.answered = false; });
+            currentQuestionIdx = 0;
+
+            // Render Player Display Info
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`p${i}-display-name`).innerText = players[i - 1].name;
+                document.getElementById(`p${i}-display-class`).innerText = `Kelas ${players[i - 1].class}`;
+                document.getElementById(`p${i}-score`).innerText = '0';
+            }
+
+            document.getElementById('arena-difficulty-tag').innerText = difficulty.toUpperCase();
+
+            switchTab('game-arena');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIdx >= questionBank.length) {
+                endGame();
+                return;
+            }
+
+            isQuestionActive = true;
+            players.forEach(p => p.answered = false);
+
+            const q = questionBank[currentQuestionIdx];
+            document.getElementById('arena-question-counter').innerText = `Soal ${currentQuestionIdx + 1}/${questionBank.length}`;
+            document.getElementById('arena-category').innerText = q.category;
+            document.getElementById('arena-question-text').innerText = q.question;
+
+            // Set timer based on difficulty
+            if (difficulty === 'mudah') timeLeft = 20;
+            else if (difficulty === 'sedang') timeLeft = 12;
+            else timeLeft = 8;
+
+            document.getElementById('arena-timer').innerText = timeLeft;
+
+            // Render Options for each of the 4 players
+            for (let pIdx = 1; pIdx <= 4; pIdx++) {
+                const optContainer = document.getElementById(`p${pIdx}-options`);
+                optContainer.innerHTML = '';
+
+                q.options.forEach((optText, optIdx) => {
+                    const btn = document.createElement('button');
+                    btn.className = `p-2 md:p-2.5 rounded-xl text-[11px] md:text-xs font-bold text-slate-700 bg-white hover:bg-amber-100 border border-slate-200 transition text-left flex items-start space-x-1.5 shadow-sm active:scale-95 disabled:opacity-50 disabled:pointer-events-none`;
+                    btn.id = `p${pIdx}-opt-${optIdx}`;
+                    btn.innerHTML = `<span class="bg-slate-200 text-slate-800 rounded-md w-4 h-4 flex items-center justify-center text-[10px] flex-shrink-0 font-bold">${String.fromCharCode(65 + optIdx)}</span> <span>${optText}</span>`;
+                    btn.onclick = () => submitPlayerAnswer(pIdx - 1, optIdx);
+                    optContainer.appendChild(btn);
+                });
+            }
+
+            // Start Countdown Timer
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('arena-timer').innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeOut();
+                }
+            }, 1000);
+        }
+
+        function submitPlayerAnswer(playerIndex, optionIndex) {
+            if (!isQuestionActive || players[playerIndex].answered) return;
+
+            players[playerIndex].answered = true;
+            const q = questionBank[currentQuestionIdx];
+            const isCorrect = (optionIndex === q.answer);
+
+            const optBtn = document.getElementById(`p${playerIndex + 1}-opt-${optionIndex}`);
+
+            if (isCorrect) {
+                playSound('correct');
+                let bonus = timeLeft * 10;
+                let basePoints = difficulty === 'mudah' ? 100 : difficulty === 'sedang' ? 150 : 200;
+                players[playerIndex].score += (basePoints + bonus);
+                document.getElementById(`p${playerIndex + 1}-score`).innerText = players[playerIndex].score;
+
+                if (optBtn) {
+                    optBtn.className = optBtn.className.replace('bg-white', 'bg-emerald-500 text-white border-emerald-600');
+                }
+            } else {
+                playSound('wrong');
+                if (optBtn) {
+                    optBtn.className = optBtn.className.replace('bg-white', 'bg-rose-500 text-white border-rose-600');
+                }
+            }
+
+            // Disable all option buttons for this player
+            for (let i = 0; i < 4; i++) {
+                const b = document.getElementById(`p${playerIndex + 1}-opt-${i}`);
+                if (b) b.disabled = true;
+            }
+
+            // Check if all players answered
+            if (players.every(p => p.answered)) {
+                clearInterval(timerInterval);
+                setTimeout(() => {
+                    currentQuestionIdx++;
+                    loadQuestion();
+                }, 1500);
+            }
+        }
+
+        function handleTimeOut() {
+            playSound('wrong');
+            isQuestionActive = false;
+
+            // Highlight correct answer in emerald
+            const q = questionBank[currentQuestionIdx];
+            for (let pIdx = 1; pIdx <= 4; pIdx++) {
+                const correctBtn = document.getElementById(`p${pIdx}-opt-${q.answer}`);
+                if (correctBtn) {
+                    correctBtn.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-100');
+                }
+            }
+
+            setTimeout(() => {
+                currentQuestionIdx++;
+                loadQuestion();
+            }, 2000);
+        }
+
+        function confirmExitGame() {
+            playSound('click');
+            if (confirm("Apakah kamu yakin ingin keluar dari pertandingan?")) {
+                clearInterval(timerInterval);
+                switchTab('game-lobby');
+            }
+        }
+
+        function endGame() {
+            clearInterval(timerInterval);
+            playSound('fanfare');
+            switchTab('result');
+
+            // Sort players by score descending
+            const sorted = [...players].sort((a, b) => b.score - a.score);
+
+            const container = document.getElementById('podium-container');
+            container.innerHTML = '';
+
+            // Render 4 Player Podium Cards
+            sorted.forEach((p, rank) => {
+                const colors = [
+                    { bg: 'bg-emas-400 text-merah-900', border: 'border-amber-500', label: 'JUARA 1', icon: 'fa-trophy' },
+                    { bg: 'bg-slate-200 text-slate-800', border: 'border-slate-400', label: 'JUARA 2', icon: 'fa-medal' },
+                    { bg: 'bg-amber-600 text-white', border: 'border-amber-700', label: 'JUARA 3', icon: 'fa-award' },
+                    { bg: 'bg-rose-100 text-rose-900', border: 'border-rose-300', label: 'JUARA 4', icon: 'fa-star' }
+                ];
+
+                const c = colors[rank];
+
+                const card = document.createElement('div');
+                card.className = `flex flex-col items-center p-3.5 rounded-2xl ${c.bg} border-2 ${c.border} shadow-lg transform transition hover:scale-105`;
+                card.innerHTML = `
+                    <div class="text-xl md:text-2xl mb-1"><i class="fa-solid ${c.icon}"></i></div>
+                    <span class="text-[9px] font-extrabold uppercase tracking-widest block">${c.label}</span>
+                    <h4 class="font-fredoka text-xs md:text-sm font-bold truncate max-w-full mt-1">${p.name}</h4>
+                    <span class="text-[10px] opacity-80">Kelas ${p.class}</span>
+                    <div class="mt-2 text-base md:text-lg font-black">${p.score} <span class="text-[9px]">pts</span></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Initialize Audio on first click
+        document.body.addEventListener('click', () => {
+            initAudio();
+        }, { once: true });
+    </script>
+</body>
+</html>
